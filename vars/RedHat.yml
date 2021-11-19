@@ -1,0 +1,3 @@
+---
+_nftables_service: nftables
+_nftables_ruleset_file: /etc/sysconfig/nftables.conf

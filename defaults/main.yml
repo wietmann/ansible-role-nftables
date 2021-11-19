@@ -1,0 +1,6 @@
+---
+nftables_ruleset:
+  include_files: []
+  tables: []
+
+nftables_validate_ruleset: True

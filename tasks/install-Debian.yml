@@ -1,0 +1,38 @@
+---
+- name: Install NFTables package
+  apt:
+    name: nftables
+    state: present
+
+- name: Create systemd unit file override dir
+  file:
+    path: /etc/systemd/system/nftables.service.d
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Create systemd unit override file
+  copy:
+    dest: /etc/systemd/system/nftables.service.d/override.conf
+    owner: root
+    group: root
+    mode: 0644
+    content: |-
+      [Service]
+      ExecReload=
+      ExecReload=/usr/sbin/nft 'flush ruleset; include "{{ nftables_ruleset_file }}";'
+  register: systemd_override_updated
+
+- name: Reload systemd unit files
+  systemd:
+    daemon-reload: yes
+  when: systemd_override_updated is changed
+
+- name: Ensure NFTables conf dir is present
+  file:
+    path: /etc/nftables
+    state: directory
+    owner: root
+    group: root
+    mode: 0750

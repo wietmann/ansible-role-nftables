@@ -1,0 +1,21 @@
+---
+- name: (RedHat) Load installation tasks
+  include_tasks: "install-RedHat.yml"
+  # include_tasks: "{{ item }}"
+  # ignore_errors: yes
+  # with_first_found:
+  #   - "install-{{ ansible_os_family | lower }}-{{ ansible_distribution_major_version | lower }}.yml"
+  #   - "install-{{ ansible_os_family | lower }}.yml"
+  when:
+    - ansible_os_family == 'RedHat'
+    - ansible_distribution != 'Fedora'
+
+- name: (Debian) Load installation tasks
+  # include_tasks: "{{ item }}"
+  include_tasks: "install-Debian.yml"
+  # ignore_errors: yes
+  # with_first_found:
+  #   - "install-{{ ansible_distribution | lower }}-{{ ansible_distribution_major_version | lower }}.yml"
+  #   - "install-{{ ansible_distribution | lower }}.yml"
+  when:
+    - ansible_distribution == 'Debian'

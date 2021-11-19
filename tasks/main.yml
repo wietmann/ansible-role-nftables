@@ -1,0 +1,20 @@
+---
+- include_tasks: variables.yml
+
+- include_tasks: install.yml
+
+- name: Generate ruleset file
+  template:
+    src: templates/ruleset.nft.j2
+    dest: "{{ nftables_ruleset_file }}"
+    owner: root
+    group: root
+    mode: 0640
+    validate: "{{ 'nft -c -f %s' if nftables_validate_ruleset == True else 'true %s' }}"
+  notify: reload nftables
+
+- name: Load nftables ruleset via systemd service
+  systemd:
+    service: "{{ nftables_service }}"
+    state: started
+    enabled: yes
