@@ -1,10 +1,10 @@
 ---
-- name: Install NFTables package
+- name: (Debian) Install NFTables package
   apt:
     name: nftables
     state: present
 
-- name: Create systemd unit file override dir
+- name: (Debian) Create systemd unit file override dir
   file:
     path: /etc/systemd/system/nftables.service.d
     state: directory
@@ -12,7 +12,7 @@
     group: root
     mode: 0755
 
-- name: Create systemd unit override file
+- name: (Debian) Create systemd unit override file
   copy:
     dest: /etc/systemd/system/nftables.service.d/override.conf
     owner: root
@@ -24,12 +24,12 @@
       ExecReload=/usr/sbin/nft 'flush ruleset; include "{{ nftables_ruleset_file }}";'
   register: systemd_override_updated
 
-- name: Reload systemd unit files
+- name: (Debian) Reload systemd unit files
   systemd:
     daemon-reload: yes
   when: systemd_override_updated is changed
 
-- name: Ensure NFTables conf dir is present
+- name: (Debian) Ensure NFTables conf dir is present
   file:
     path: /etc/nftables
     state: directory

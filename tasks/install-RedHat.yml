@@ -1,8 +1,8 @@
 ---
-- name: Gather services facts
+- name: (RedHat) Gather services facts
   service_facts:
 
-- name: Ensure firewalld is stopped and service is masked
+- name: (RedHat) Ensure firewalld is stopped and service is masked
   systemd:
     service: firewalld
     state: stopped
@@ -10,20 +10,20 @@
     masked: yes
   when: services['firewalld.service'] is defined
 
-- name: Install NFTables package
+- name: (RedHat) Install NFTables package
   yum:
     name: nftables
     state: installed
   register: nftables_install_status
 
-- name: Remove default ruleset files after installation
+- name: (RedHat) Remove default ruleset files after installation
   file:
     path: /etc/nftables
     state: absent
   when: (nftables_install_status is changed) or (nftables_ruleset is not defined) or ((nftables_ruleset.tables | default([])) == [])
   notify: reload nftables
 
-- name: Ensure NFTables conf dir is present
+- name: (RedHat) Ensure NFTables conf dir is present
   file:
     path: /etc/nftables
     state: directory
