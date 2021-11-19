@@ -1,3 +1,4 @@
 .tox
 .vagrant
 Vagrantfile
+*.ignore
