@@ -1,0 +1,6 @@
+python-vagrant
+ansible
+yamllint
+ansible-lint
+molecule==3.*
+molecule-vagrant

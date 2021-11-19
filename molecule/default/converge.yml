@@ -1,0 +1,45 @@
+---
+- name: Converge
+  hosts: all
+  become: yes
+
+  vars:
+    nftables_ruleset:
+      tables:
+        - name: filter
+          family: "ip"
+          chains:
+            - name: input
+              type: "filter"
+              hook: "input"
+              policy: "drop"
+              priority: 0
+              rules:
+                - "ct state established,related accept"
+                - "iifname lo accept"
+                - "icmp type echo-request accept"
+                - "tcp dport {ssh} accept"
+            - name: forward
+              type: "filter"
+              hook: "forward"
+              policy: "drop"
+              priority: 0
+            - name: output
+              type: "filter"
+              hook: "output"
+              policy: "accept"
+              priority: 0
+        - name: nat
+          family: ip
+          chains:
+            - name: prerouting
+              type: nat
+              hook: prerouting
+              priority: -100
+            - name: postrouting
+              type: nat
+              hook: postrouting
+              priority: 100
+
+  roles:
+    - role: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}"
