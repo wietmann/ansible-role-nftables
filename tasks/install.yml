@@ -1,6 +1,9 @@
 ---
 - name: (RedHat) Load installation tasks
-  include_tasks: "install-RedHat.yml"
+  include_tasks:
+    file: "install-RedHat.yml"
+    apply:
+      tags: ['nftables_install']
   # include_tasks: "{{ item }}"
   # ignore_errors: yes
   # with_first_found:
@@ -12,7 +15,10 @@
 
 - name: (Debian) Load installation tasks
   # include_tasks: "{{ item }}"
-  include_tasks: "install-Debian.yml"
+  include_tasks:
+    file: "install-Debian.yml"
+    apply:
+      tags: ['nftables_install']
   # ignore_errors: yes
   # with_first_found:
   #   - "install-{{ ansible_distribution | lower }}-{{ ansible_distribution_major_version | lower }}.yml"

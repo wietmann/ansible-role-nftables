@@ -1,7 +1,15 @@
 ---
-- include_tasks: variables.yml
+- include_tasks:
+    file: variables.yml
+    apply:
+      tags: ['always']
+  tags: ['always']
 
-- include_tasks: install.yml
+- include_tasks:
+    file: install.yml
+    apply:
+      tags: ['nftables_install']
+  tags: ['nftables_install']
 
 - name: Generate ruleset file
   template:
@@ -12,9 +20,11 @@
     mode: 0640
     validate: "{{ 'nft -c -f %s' if nftables_validate_ruleset == True else 'true %s' }}"
   notify: reload nftables
+  tags: ['nftables_configure']
 
 - name: Load nftables ruleset via systemd service
   systemd:
     service: "{{ nftables_service }}"
     state: started
     enabled: yes
+  tags: ['nftables_configure']
