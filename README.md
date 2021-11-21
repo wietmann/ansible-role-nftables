@@ -89,6 +89,8 @@ Testing
 
 This role uses [Molecule](https://molecule.readthedocs.io/en/stable/) for testing. Molecule is run against [Vagrant](https://www.vagrantup.com/docs)-managed VMs (see `default` scenario). By default, provider `libvirt` is used unless overriden by `MOLECULE_VAGRANT_PROVIDER` env variable.
 
+Use `MOLECULE_VAGRANT_VM_CPUS` and `MOLECULE_VAGRANT_VM_MEM` env variables to set VM vCPUs and RAM count.
+
 Additional dependencies for controller host:
 * Vagrant + preferred provider
 * Python: `python-vagrant` library

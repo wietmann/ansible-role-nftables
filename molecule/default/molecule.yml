@@ -10,20 +10,20 @@ driver:
 platforms:
   - name: centos7
     box: centos/7
-    cpus: 1
-    memory: 1024
+    cpus: "${MOLECULE_VAGRANT_VM_CPUS:-1}"
+    memory: "${MOLECULE_VAGRANT_VM_MEM:-1024}"
   - name: centos8
     box: centos/8
-    cpus: 1
-    memory: 1024
+    cpus: "${MOLECULE_VAGRANT_VM_CPUS:-1}"
+    memory: "${MOLECULE_VAGRANT_VM_MEM:-1024}"
   - name: debian10
     box: generic/debian10
-    cpus: 1
-    memory: 1024
+    cpus: "${MOLECULE_VAGRANT_VM_CPUS:-1}"
+    memory: "${MOLECULE_VAGRANT_VM_MEM:-1024}"
   - name: debian11
     box: generic/debian11
-    cpus: 1
-    memory: 1024
+    cpus: "${MOLECULE_VAGRANT_VM_CPUS:-1}"
+    memory: "${MOLECULE_VAGRANT_VM_MEM:-1024}"
 
 provisioner:
   name: ansible
