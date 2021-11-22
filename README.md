@@ -17,7 +17,7 @@ Role Variables
 |-|-|-|
 |`nftables_validate_ruleset`|`True`|Wether to run `nft -c -f {{ nftables_ruleset_path }}`|
 |`nftables_ruleset.include_files`|`[]`|List of include files path for generic level include statements|
-|`nftables_ruleset.tables`|[]|List of tables|
+|`nftables_ruleset.tables`|`[]`|List of tables|
 |`nftables_ruleset.tables[*].name`|-|Table name, mandatory|
 |`nftables_ruleset.tables[*].family`|`'ip'`|Table family: ip, arp, ip6, bridge, inet, netdev|
 |`nftables_ruleset.tables[*].include`|`[]`|List of inlude file paths|

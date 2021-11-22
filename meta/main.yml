@@ -1,0 +1,25 @@
+---
+galaxy_info:
+  role_name: nftables
+  namespace: wietmann
+  author: Dmitry Danilov <dima.danilov9867@gmail.com>
+  description: Setup and manage Nftables
+  license: MIT
+  min_ansible_version: 2.9
+
+  platforms:
+    - name: EL
+      versions:
+        - 7
+        - 8
+    - name: Debian
+      versions:
+        - buster
+        - bullseye
+
+  galaxy_tags:
+    - system
+    - network
+    - firewall
+
+dependencies: []
